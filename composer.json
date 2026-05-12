@@ -10,10 +10,11 @@
             "name": "anvildevxyz"
         }
     ],
-    "homepage": "https://github.com/fabianhaef/craft-freemap-dev",
+    "homepage": "https://github.com/anvildevxyz/craft-cartograph",
     "support": {
-        "issues": "https://github.com/fabianhaef/craft-freemap-dev/issues",
-        "source": "https://github.com/fabianhaef/craft-freemap-dev"
+        "docs": "https://github.com/anvildevxyz/craft-cartograph/blob/main/README.md",
+        "issues": "https://github.com/anvildevxyz/craft-cartograph/issues",
+        "source": "https://github.com/anvildevxyz/craft-cartograph"
     },
     "require": {
         "php": "^8.2",
