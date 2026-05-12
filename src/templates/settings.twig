@@ -1,0 +1,55 @@
+{% import '_includes/forms' as forms %}
+
+<h2 class="heading first">{{ 'Map defaults'|t('cartograph') }}</h2>
+<p class="instructions">{{ 'These values configure MapLibre when using OpenFreeMap (or any compatible vector style URL).'|t('cartograph') }}</p>
+
+{{ forms.textField({
+	label: 'Default style URL'|t('cartograph'),
+	id: 'defaultStyleUrl',
+	name: 'defaultStyleUrl',
+	value: settings.defaultStyleUrl,
+	instructions: 'Example OpenFreeMap bright style: https://tiles.openfreemap.org/styles/bright'|t('cartograph'),
+}) }}
+
+<div class="flex flex-nowrap">
+	{{ forms.textField({
+		label: 'Default longitude'|t('cartograph'),
+		id: 'defaultLng',
+		name: 'defaultLng',
+		value: settings.defaultLng,
+		type: 'number',
+		step: 'any',
+	}) }}
+	&nbsp;
+	{{ forms.textField({
+		label: 'Default latitude'|t('cartograph'),
+		id: 'defaultLat',
+		name: 'defaultLat',
+		value: settings.defaultLat,
+		type: 'number',
+		step: 'any',
+	}) }}
+</div>
+
+{{ forms.textField({
+	label: 'Default zoom'|t('cartograph'),
+	id: 'defaultZoom',
+	name: 'defaultZoom',
+	value: settings.defaultZoom,
+	type: 'number',
+	min: 0,
+	max: 22,
+	size: 5,
+}) }}
+
+<hr class="divider">
+<h2>{{ 'Asset delivery'|t('cartograph') }}</h2>
+
+{{ forms.textField({
+	label: 'Self-hosted MapLibre asset base'|t('cartograph'),
+	id: 'maplibreSelfHostBase',
+	name: 'maplibreSelfHostBase',
+	value: settings.maplibreSelfHostBase,
+	placeholder: '/cpresources/cartograph-maplibre',
+	instructions: 'Leave empty to load `maplibre-gl.{js,css}` from jsdelivr with pinned SRI. Set to a folder URL or absolute path that serves both files to bypass the CDN entirely (recommended for strict CSP / supply-chain). No trailing slash.'|t('cartograph'),
+}) }}

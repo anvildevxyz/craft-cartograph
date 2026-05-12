@@ -1,0 +1,29 @@
+parameters:
+    level: 5
+    paths:
+        - src
+    excludePaths:
+        - src/templates/*
+        - src/migrations/*
+        - src/web/*
+        - src/translations/*
+    tmpDir: .phpstan
+    treatPhpDocTypesAsCertain: false
+    bootstrapFiles:
+        - ../../vendor/autoload.php
+        - ../../vendor/craftcms/cms/bootstrap/console.php
+    ignoreErrors:
+        # Yii2 stubs treat Behavior as generic Behavior<TOwner>; concrete subclasses
+        # widen at attach time. Pervasive across Craft+Yii2 — ignore at the call site.
+        - '#Parameter \#2 \$behavior of method yii\\base\\Component::attachBehavior\(\) expects array\|string\|yii\\base\\Behavior<.+>, anvildevxyz\\cartograph\\elements\\behaviors\\\w+ given#'
+        # Cannot cast mixed — common with json_decode / config arrays
+        - '#Cannot cast mixed to#'
+
+    # Rules for stricter code
+    checkFunctionNameCase: true
+    reportMagicMethods: true
+    reportMagicProperties: true
+    checkExplicitMixed: true
+
+includes:
+    - ../../vendor/craftcms/phpstan/phpstan.neon

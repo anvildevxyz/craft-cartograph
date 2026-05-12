@@ -1,0 +1,65 @@
+{% import '_includes/forms' as forms %}
+
+<hr>
+<h3>{{ 'Map preview'|t('cartograph') }}</h3>
+
+{{ forms.lightswitchField({
+	label: 'Show live map preview in the entry editor'|t('cartograph'),
+	id: 'showPreviewMap',
+	name: 'showPreviewMap',
+	on: field.showPreviewMap ?? true,
+}) }}
+
+{{ forms.textField({
+	label: 'Override style URL for this field only'|t('cartograph'),
+	instructions: 'Leave blank to use the plugin default.'|t('cartograph'),
+	id: 'mapStyleUrl',
+	name: 'mapStyleUrl',
+	value: field.mapStyleUrl ?? '',
+	placeholder: '',
+}) }}
+
+{{ forms.textField({
+	label: 'Maximum zoom (initial + fit bounds cap)'|t('cartograph'),
+	instructions: '1–22 or leave empty for plugin default only.'|t('cartograph'),
+	id: 'mapMaxZoom',
+	name: 'mapMaxZoom',
+	value: field.mapMaxZoom ?? '',
+	type: 'number',
+	min: 0,
+	max: 22,
+}) }}
+
+<hr>
+<h3>{{ 'GeoJSON from URL (Control Panel)'|t('cartograph') }}</h3>
+
+{{ forms.lightswitchField({
+	label: 'Allow HTTPS GeoJSON fetch in entry editor'|t('cartograph'),
+	id: 'allowGeojsonUrlImport',
+	name: 'allowGeojsonUrlImport',
+	on: field.allowGeojsonUrlImport,
+	instructions: 'Adds an import row that downloads JSON over HTTPS (server-side). Private IPs and redirects are rejected; obey third-party licensing.'|t('cartograph'),
+}) }}
+
+{{ forms.textField({
+	label: 'Maximum GeoJSON URL download size (bytes)'|t('cartograph'),
+	id: 'urlImportMaxBytes',
+	name: 'urlImportMaxBytes',
+	value: field.urlImportMaxBytes,
+	type: 'number',
+	min: 4096,
+	max: 5242880,
+}) }}
+
+<hr>
+<h3>{{ 'Content limits'|t('cartograph') }}</h3>
+
+{{ forms.textField({
+	label: 'Maximum number of features'|t('cartograph'),
+	id: 'maxFeatureCount',
+	name: 'maxFeatureCount',
+	value: field.maxFeatureCount,
+	type: 'number',
+	min: 1,
+	max: 5000,
+}) }}

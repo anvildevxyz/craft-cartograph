@@ -1,0 +1,70 @@
+/* Map GeoJSON CP field: editor + preview — full width of the form content */
+.cartographGeojsonField {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	gap: 1rem;
+	align-items: stretch;
+	width: 100%;
+	max-width: 100%;
+	min-width: 0;
+	box-sizing: border-box;
+}
+.cartographGeojsonField-editor {
+	flex: 0 0 auto;
+	width: 100%;
+	min-width: 0;
+}
+.cartographGeojsonField-editor textarea.monospace {
+	width: 100%;
+	min-height: 18rem;
+	box-sizing: border-box;
+}
+.cartographGeojsonField-previewWrap {
+	flex: 0 0 auto;
+	width: 100%;
+	min-width: 0;
+	max-width: 100%;
+}
+.cartographGeojsonField-label {
+	display: block;
+	font-weight: 600;
+	margin-block-end: 0.35rem;
+}
+.cartographGeojsonField-help {
+	margin-block-start: 0.35rem;
+	font-size: 12px;
+	color: color-mix(in srgb, var(--text-color, #3f4d5a) 72%, transparent);
+	max-width: none;
+}
+.cartographGeojsonField-preview {
+	position: relative;
+	width: 100%;
+	height: min(420px, 52vh);
+	min-height: 280px;
+	border-radius: var(--radii-m, 4px);
+	overflow: hidden;
+	box-shadow: inset 0 0 0 1px var(--hairline-simple, rgba(0, 0, 0, 0.12));
+	background: color-mix(in srgb, var(--gray-050, #f4f6f9) 100%, transparent);
+}
+.cartographGeojsonField-noPreview {
+	max-width: 100%;
+}
+.cartographGeojsonField-fetch {
+	flex: 0 0 auto;
+	width: 100%;
+	margin-block-end: 0.75rem;
+	padding: 0.75rem 1rem;
+	border-radius: var(--radii-m, 4px);
+	background: var(--gray-050, #f4f6f9);
+	box-shadow: inset 0 0 0 1px var(--hairline-simple, rgba(0, 0, 0, 0.1));
+	box-sizing: border-box;
+}
+.cartographGeojsonField-fetch .instructions {
+	margin-block-start: 0.25rem;
+	font-size: 12px;
+	color: color-mix(in srgb, var(--text-color, #3f4d5a) 72%, transparent);
+}
+.cartographGeojsonField-fetch .warning:empty {
+	display: none;
+}

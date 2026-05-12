@@ -1,0 +1,18 @@
+{#
+  Cartograph — named embed presets (`compact`, `hero`, `default`).
+  Register alternate presets from PHP: Cartograph::EVENT_DEFINE_EMBED_PRESETS.
+
+  Usage (example only — do not nest `{#` inside this block):
+    include `cartograph/map-embed` with preset / geojson / height / config as needed.
+#}
+{% set _name = preset is defined ? (preset|string) : 'default' %}
+{% set _defaults = craft.cartograph.embedPreset(_name) %}
+{% include 'cartograph/map' with {
+	height: height is defined ? height : (_defaults.height ?? '400px'),
+	width: width is defined ? width : (_defaults.width ?? null),
+	id: id is defined ? id : (_defaults.id ?? null),
+	lazy: lazy is defined ? lazy : ((_defaults.lazy ?? false) ? true : false),
+	lazyRootMargin: lazyRootMargin is defined ? lazyRootMargin : (_defaults.lazyRootMargin ?? null),
+	geojson: geojson ?? null,
+	config: ((_defaults.config ?? {})|merge(config ?? {})),
+} %}

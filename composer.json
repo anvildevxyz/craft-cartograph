@@ -1,0 +1,65 @@
+{
+    "name": "anvildevxyz/craft-cartograph",
+    "description": "Craft CMS map field foundation using OpenFreeMap vector tiles and MapLibre GL JS.",
+    "version": "1.0.0",
+    "type": "craft-plugin",
+    "license": "proprietary",
+    "keywords": ["craft", "cms", "craftcms", "map", "openstreetmap", "openfreemap", "maplibre", "geo"],
+    "authors": [
+        {
+            "name": "anvildevxyz"
+        }
+    ],
+    "homepage": "https://github.com/fabianhaef/craft-freemap-dev",
+    "support": {
+        "issues": "https://github.com/fabianhaef/craft-freemap-dev/issues",
+        "source": "https://github.com/fabianhaef/craft-freemap-dev"
+    },
+    "require": {
+        "php": "^8.2",
+        "craftcms/cms": "^5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5",
+        "symfony/http-foundation": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "anvildevxyz\\cartograph\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "anvildevxyz\\cartograph\\tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "handle": "cartograph",
+        "name": "Cartograph",
+        "developer": "anvildevxyz",
+        "class": "anvildevxyz\\cartograph\\Cartograph",
+        "hasCpSettings": true,
+        "hasCpSection": false
+    },
+    "scripts": {
+        "test": "phpunit",
+        "phpstan": "../../vendor/bin/phpstan analyse --memory-limit=512M",
+        "ecs": "../../vendor/bin/ecs check --fix",
+        "ecs:check": "../../vendor/bin/ecs check",
+        "check": [
+            "@ecs:check",
+            "@phpstan"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
+        },
+        "platform": {
+            "php": "8.2"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

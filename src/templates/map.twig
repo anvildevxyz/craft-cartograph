@@ -1,0 +1,30 @@
+{#
+  Cartograph — OpenFreeMap + MapLibre
+
+  Usage:
+    {% include 'cartograph/map' %}
+    {% include 'cartograph/map' with {
+      height: '50vh',
+      config: { zoom: 14, center: [8.55, 47.37], fitMaxZoom: 17 },
+    } %}
+    {% include 'cartograph/map' with { geojson: { type: 'FeatureCollection', features: [...] } } %}
+
+  Optional keys on `config`: `fitMaxZoom` (int) caps zoom when fitting bounds to geometry.
+
+  Deferred init: pass `lazy: true` (optional `lazyRootMargin`: e.g. `'200px'`) so the map loads when the placeholder scrolls near the viewport (Intersection Observer).
+#}
+{% set mapDomId = id ?? ('cartograph-' ~ random()) %}
+{% set configScriptId = mapDomId ~ '-config' %}
+{% set mergedConfig = craft.cartograph.clientConfigMerged(config ?? {}, geojson ?? null) %}
+
+{% do craft.cartograph.registerMapAssets() %}
+
+<div id="{{ mapDomId }}"
+	class="cartograph-map"
+	data-cartograph-map
+	data-cartograph-config-id="{{ configScriptId }}"
+	{% if lazy ?? false %}data-cartograph-lazy{% endif %}
+	{% if (lazy ?? false) and (lazyRootMargin ?? null) %}data-cartograph-lazy-root-margin="{{ lazyRootMargin|e('html_attr') }}"{% endif %}
+	style="width: {{ craft.cartograph.safeCssLength(width ?? '100%', '100%') }}; height: {{ craft.cartograph.safeCssLength(height ?? '400px', '400px') }};"></div>
+
+<script type="application/json" id="{{ configScriptId }}">{{ craft.cartograph.embedConfigJson(mergedConfig)|raw }}</script>

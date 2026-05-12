@@ -1,0 +1,32 @@
+{% import '_includes/forms' as forms %}
+
+<hr>
+<h3>{{ 'Map picker'|t('cartograph') }}</h3>
+
+{{ forms.textField({
+	label: 'Override style URL for this field only'|t('cartograph'),
+	instructions: 'Leave blank to use the plugin default.'|t('cartograph'),
+	id: 'mapStyleUrl',
+	name: 'mapStyleUrl',
+	value: field.mapStyleUrl ?? '',
+	placeholder: '',
+}) }}
+
+{{ forms.lightswitchField({
+	label: 'Small map thumbnails in element indexes'|t('cartograph'),
+	id: 'showIndexMapThumbnail',
+	name: 'showIndexMapThumbnail',
+	on: field.showIndexMapThumbnail,
+	instructions: 'Uses MapLibre to render a ~96×54 preview in Entry (and compatible) indexes. Costs extra tiles per visible row — keep index pagination sensible.'|t('cartograph'),
+}) }}
+
+{{ forms.textField({
+	label: 'Maximum zoom (picker cap)'|t('cartograph'),
+	instructions: 'Caps the initial picker zoom; 0–22 or empty for no cap.'|t('cartograph'),
+	id: 'mapMaxZoom',
+	name: 'mapMaxZoom',
+	value: field.mapMaxZoom ?? '',
+	type: 'number',
+	min: 0,
+	max: 22,
+}) }}

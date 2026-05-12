@@ -1,0 +1,28 @@
+{# Cartograph · Map GeoJSON (CP) — JSON textarea + optional MapLibre preview #}
+<div class="cartographGeojsonField{% if not showPreviewMap %} cartographGeojsonField-noPreview{% endif %}"
+	data-cartograph-geojson-widget
+	{% if fetchUrlConfigAttr %}data-fetch-url-config="{{ fetchUrlConfigAttr|e('html_attr') }}"{% endif %}
+	{% if showPreviewMap %}data-preview-config="{{ previewConfigAttr|e('html_attr') }}"{% endif %}
+>
+	{% if fetchUrlConfigAttr %}
+	<div class="cartographGeojsonField-fetch field">
+		<label for="{{ id }}-fetch-url">{{ 'GeoJSON HTTPS URL (import)'|t('cartograph') }}</label>
+		<div class="flex flex-nowrap" style="gap: 8px;">
+			<input type="url" id="{{ id }}-fetch-url" class="text flex-grow" autocomplete="off" placeholder="https://example.org/data.geojson" value="" data-cartograph-fetch-url-input>
+			<button type="button" class="btn" data-cartograph-fetch-url-submit>{{ 'Fetch & replace textarea'|t('cartograph') }}</button>
+		</div>
+		<p class="warning" role="status" aria-live="polite" data-cartograph-fetch-url-status></p>
+		<p class="instructions">{{ 'Only https URLs; redirects rejected; capped by field settings.'|t('cartograph') }}</p>
+	</div>
+	{% endif %}
+	<div class="cartographGeojsonField-editor">
+		<label for="{{ id }}" class="cartographGeojsonField-label">{{ 'GeoJSON'|t('cartograph') }}</label>
+		<textarea id="{{ id }}" name="{{ name }}" rows="14" class="text fullwidth monospace" spellcheck="false">{{ json }}</textarea>
+		<p class="cartographGeojsonField-help">{{ 'Paste a FeatureCollection (or a Feature / geometry the plugin can wrap). Allowed geometry types: Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon.'|t('cartograph') }}</p>
+	</div>
+	{% if showPreviewMap %}
+		<div class="cartographGeojsonField-previewWrap">
+			<div class="cartographGeojsonField-preview" data-cartograph-geojson-preview data-textarea-id="{{ domId }}" id="{{ id }}-preview-map"></div>
+		</div>
+	{% endif %}
+</div>

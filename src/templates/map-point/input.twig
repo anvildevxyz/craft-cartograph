@@ -1,0 +1,15 @@
+{#
+	Cartograph · Map Point (Control Panel input)
+	Name / id come from Php already namespaced.
+#}
+
+<div class="cartographCpPicker" id="{{ id }}-widget" data-cartograph-cp-picker="{{ id }}" data-picker-config="{{ pickerConfigAttr|e('html_attr') }}">
+	<div class="cartographCpPicker-bar">
+		<button type="button" class="cartographCpPicker-clear btn small">{{ 'Clear pin'|t('cartograph') }}</button>
+		<span class="cartographCpPicker-hint">{{ 'Drag the marker or click the map.'|t('cartograph') }}</span>
+	</div>
+	<div class="cartographCpPicker-map" id="{{ id }}-map" ></div>
+
+	{# Single JSON GeoJSON fragment — MapPointField normalizes POST #}
+	<input type="hidden" id="{{ id }}" name="{{ name }}" value="{{ payloadAttr|e('html_attr') }}" class="cartographCpPicker-input">
+</div>
