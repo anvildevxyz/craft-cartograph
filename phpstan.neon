@@ -2,16 +2,18 @@ parameters:
     level: 5
     paths:
         - src
-    excludePaths:
-        - src/templates/*
-        - src/migrations/*
-        - src/web/*
-        - src/translations/*
     tmpDir: .phpstan
     treatPhpDocTypesAsCertain: false
     bootstrapFiles:
         - ../../vendor/autoload.php
         - ../../vendor/craftcms/cms/bootstrap/console.php
+        - src/compat/InputSchemaFieldInterface.php
+    excludePaths:
+        - src/templates/*
+        - src/migrations/*
+        - src/web/*
+        - src/translations/*
+        - src/compat/*
     ignoreErrors:
         # Yii2 stubs treat Behavior as generic Behavior<TOwner>; concrete subclasses
         # widen at attach time. Pervasive across Craft+Yii2 — ignore at the call site.

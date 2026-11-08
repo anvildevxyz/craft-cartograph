@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace anvildevxyz\cartograph\fields;
 
+require_once dirname(__DIR__) . '/compat/InputSchemaFieldInterface.php';
+
 use anvildevxyz\cartograph\assetbundles\CartographCpGeojsonAsset;
 use anvildevxyz\cartograph\assetbundles\CartographCpPickerAsset;
 use anvildevxyz\cartograph\Cartograph;
@@ -13,6 +15,7 @@ use anvildevxyz\cartograph\helpers\GeoJsonHelper;
 use Craft;
 use craft\base\ElementInterface;
 use craft\base\Field;
+use craft\base\InputSchemaFieldInterface;
 use craft\base\PreviewableFieldInterface;
 use craft\helpers\Html;
 use craft\helpers\Json;
@@ -20,7 +23,7 @@ use craft\helpers\UrlHelper;
 use craft\web\assets\codemirror\CodeMirrorAsset;
 use yii\db\Schema;
 
-final class MapGeojsonField extends Field implements PreviewableFieldInterface
+final class MapGeojsonField extends Field implements InputSchemaFieldInterface, PreviewableFieldInterface
 {
     use EncodesGeoJsonGqlTrait;
 
@@ -75,6 +78,21 @@ final class MapGeojsonField extends Field implements PreviewableFieldInterface
             $config['mapMaxZoom'] = $z === '' ? null : (is_numeric($z) ? (int) $z : $z);
         }
         parent::__construct($config);
+    }
+
+    /**
+     * JSON schema Craft 5.12's MCP server uses when an agent writes this field.
+     * The field accepts a GeoJSON Feature or FeatureCollection and stores a FeatureCollection.
+     *
+     * @return array<string, mixed>
+     */
+    public function getInputSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => 'GeoJSON Feature or FeatureCollection.',
+            'additionalProperties' => true,
+        ];
     }
 
     public function normalizeValue(mixed $value, ?ElementInterface $element = null): mixed

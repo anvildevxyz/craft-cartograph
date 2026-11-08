@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace anvildevxyz\cartograph\fields;
 
+require_once dirname(__DIR__) . '/compat/InputSchemaFieldInterface.php';
+
 use anvildevxyz\cartograph\assetbundles\CartographCpIndexThumbAsset;
 use anvildevxyz\cartograph\assetbundles\CartographCpPickerAsset;
 use anvildevxyz\cartograph\Cartograph;
@@ -14,13 +16,14 @@ use anvildevxyz\cartograph\helpers\GeoJsonHelper;
 use Craft;
 use craft\base\ElementInterface;
 use craft\base\Field;
+use craft\base\InputSchemaFieldInterface;
 use craft\base\PreviewableFieldInterface;
 use craft\helpers\Html;
 use craft\helpers\Json;
 use GraphQL\Type\Definition\Type;
 use yii\db\Schema;
 
-final class MapPointField extends Field implements PreviewableFieldInterface
+final class MapPointField extends Field implements InputSchemaFieldInterface, PreviewableFieldInterface
 {
     use EncodesGeoJsonGqlTrait;
 
@@ -88,6 +91,31 @@ final class MapPointField extends Field implements PreviewableFieldInterface
     public static function icon(): string
     {
         return 'globe';
+    }
+
+    /**
+     * JSON schema Craft 5.12's MCP server uses when an agent writes this field.
+     * Matches {@see self::normalizeValue()}: a GeoJSON Point, longitude then latitude.
+     *
+     * @return array<string, mixed>
+     */
+    public function getInputSchema(): array
+    {
+        return [
+            'type' => 'object',
+            'description' => 'GeoJSON Point. coordinates are longitude, then latitude.',
+            'properties' => [
+                'type' => ['const' => 'Point'],
+                'coordinates' => [
+                    'type' => 'array',
+                    'items' => ['type' => 'number'],
+                    'minItems' => 2,
+                    'maxItems' => 2,
+                ],
+            ],
+            'required' => ['type', 'coordinates'],
+            'additionalProperties' => false,
+        ];
     }
 
     public static function phpType(): string
