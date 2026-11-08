@@ -1,7 +1,7 @@
 {
     "name": "anvildevxyz/craft-cartograph",
     "description": "Craft CMS map field foundation using OpenFreeMap vector tiles and MapLibre GL JS.",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "type": "craft-plugin",
     "license": "proprietary",
     "keywords": ["craft", "cms", "craftcms", "map", "openstreetmap", "openfreemap", "maplibre", "geo"],
